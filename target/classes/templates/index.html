@@ -3,25 +3,46 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <!--<script src="../static/js/jquery-1.10.2.js"></script>-->
     <script th:src="@{/js/jquery-1.10.2.js}"></script>
-
+    <script th:src="@{/js/vue.min.js}"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
 </head>
 <body>
-    <input type="button" value="测试弹出" onclick="alertMsg()"/>
+    <div id="vue1">
+        <button @click="alertMsg">测试弹出</button>
+        <ul>
+            <li v-for="user in users">{{user.username}}</li>
+        </ul>
+    </div>
 </body>
 <script type="text/javascript">
-    function alertMsg(){
-        $.ajax({
-            cache:true,
-            type:"POST",
-            url:"/getUserList",
-            dataType:'JSON',
-            async: false,
-            success: function(data) {
-                alert(data);
+    var vue1 = new Vue({
+        el:"#vue1",
+        data:{
+            users:'',
+        },
+        methods:{
+            alertMsg:function(){
+                axios.post("/getUserList")
+                    .then(response => {
+                        console.log(response.data);
+                        this.users = response.data
+                    }
+                    )
+                /*$.ajax({
+                    cache:true,
+                    type:"POST",
+                    url:"/getUserList",
+                    dataType:'JSON',
+                    async: false,
+                    success: function(data) {
+                        this.users = data;
+
+                        alert(this.users);
+                    }
+                })*/
             }
-        })
-    }
+        }
+    })
 </script>
 </html>

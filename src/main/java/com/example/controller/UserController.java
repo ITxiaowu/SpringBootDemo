@@ -26,6 +26,7 @@ public class UserController {
     @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
     @ResponseBody
     public List<User> getUserList(){
-        return  userMapper.getUsetList();
+        //System.out.println("Test");
+        return userMapper.getUsetList();
     }
 }
