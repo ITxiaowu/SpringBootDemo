@@ -1,14 +1,11 @@
 package com.example.controller;
 
-import com.example.model.User;
-import com.example.model.mapper.UserMapper;
+import com.example.dao.User;
+import com.example.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
