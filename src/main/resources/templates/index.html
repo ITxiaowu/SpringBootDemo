@@ -6,6 +6,7 @@
     <script th:src="@{/js/jquery-1.10.2.js}"></script>
     <script th:src="@{/js/vue.min.js}"></script>
     <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
 <div id="index_vue">
@@ -35,30 +36,27 @@
         data:{
             users:'',
         },
-        methods:{
-            alertMsg:function(){
-                axios.post("/getUserList")
+        methods: {
+
+            alertMsg: function () {
+                axios.get("/getUserList")
                     .then(response => {
                         console.log(response.data);
                         this.users = response.data
                     })
             },
             updateUser:function(id){
-                alert(id);
+                window.location.href='/updateUser?userid='+id;
+
+            },
+            deleteUser: function (id) {
                 axios.post("/getUserList")
                     .then(response => {
                         console.log(response.data);
                         this.users = response.data
                     })
             },
-            deleteUser:function(id){
-                axios.post("/getUserList")
-                    .then(response => {
-                        console.log(response.data);
-                        this.users = response.data
-                    })
-            }
-        },
+        }
     })
 </script>
 </html>

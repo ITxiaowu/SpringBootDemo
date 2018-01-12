@@ -4,6 +4,8 @@ import com.example.dao.User;
 import com.example.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,15 +17,19 @@ public class UserController {
 
     @RequestMapping("/index")
     public String helloHtml(){
-
         return "/index";
     }
 
-    //@GetMapping("/getUserList")
-    @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUserList(){
-        //System.out.println("Test");
         return userMapper.getUsetList();
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    public String updateUser(int userid,ModelMap modelMap){
+        User user =userMapper.getUsetById(userid);
+        modelMap.addAttribute("user",user);
+        return "/userUpdate";
     }
 }
