@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户添加</title>
+    <script th:src="@{/js/jquery-1.10.2.js}"></script>
+    <script th:src="@{/js/vue.min.js}"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<form v-on:submit.prevent="submit" id="addUser">
+    <table>
+        <caption>新增用户</caption>
+        <tr>
+            <td>用户名：</td>
+            <td><input v-model="userInfo.username"/></td>
+        </tr>
+        <tr>
+            <td>年龄：</td>
+            <td><input v-model="userInfo.userage"/></td>
+        </tr>
+        <tr style="text-align: center">
+            <td colspan="2">
+                <button>保存</button>
+                <button onclick="javascript:history.back(-1);">返回</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+<script>
+    var vm = new Vue({
+        el:"#addUser",
+        data:{
+            userInfo:{}
+        },
+        methods:{
+            submit:function(){
+                console.log(this.userInfo);
+            }
+        }
+    })
+
+</script>
+</html>

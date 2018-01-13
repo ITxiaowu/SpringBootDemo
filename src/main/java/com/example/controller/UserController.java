@@ -26,6 +26,11 @@ public class UserController {
         return userMapper.getUsetList();
     }
 
+    @RequestMapping(value = "/toAddUser", method = RequestMethod.GET)
+    public String toAddUser(){
+        return "/userAdd";
+    }
+
     @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
     public String updateUser(int userid,ModelMap modelMap){
         User user =userMapper.getUsetById(userid);
