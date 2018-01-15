@@ -1,17 +1,16 @@
 package com.example.controller;
 
-import com.example.dao.User;
+import com.example.bean.User;
 import com.example.mapper.UserMapper;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -59,19 +58,20 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody User user){
-        String result = "";
+        // 操作执行后的标识符
+        String resultStr = "";
         try {
             boolean addResult = userMapper.addUser(user);
             if(addResult){
-                result = "succcess";
+                resultStr = "succcess";
             }else{
-                result = "fail";
+                resultStr = "fail";
             }
         }catch (Exception e){
             logger.error(e.getMessage());
-            result = "exception";
+            resultStr = "exception";
         }
-        return result;
+        return resultStr;
     }
 
     /**
@@ -80,10 +80,35 @@ public class UserController {
      * @param modelMap 回传的数据
      * @return
      */
-    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
-    public String updateUser(int userid,ModelMap modelMap){
+    @RequestMapping(value = "/toUpdateUser", method = RequestMethod.GET)
+    public String toUpdateUser(int userid,ModelMap modelMap){
         User user =userMapper.getUsetById(userid);
         modelMap.addAttribute("user",user);
         return "/userUpdate";
+    }
+
+    /**
+     * 执行User编辑
+     * @param user
+     * @return
+     */
+    @RequestMapping(value="/updateUser",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUser(@RequestParam(value = "user", required = false) User user){
+        // 操作执行后的标识符
+        String resultStr = "";
+
+        try{
+            boolean updateResult = false;//userMapper.updateUser(user);
+            if(updateResult){// 修改成功
+                resultStr = "succcess";
+            }else{// 修改失败
+                resultStr = "fail";
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            resultStr = "exception";
+        }
+        return resultStr;
     }
 }

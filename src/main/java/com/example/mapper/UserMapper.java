@@ -1,6 +1,6 @@
 package com.example.mapper;
 
-import com.example.dao.User;
+import com.example.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +27,11 @@ public interface UserMapper {
      * @return
      */
     User getUsetById(@Param("userid") Integer userid);
+
+    /**
+     * 修改user对象
+     * @param user user对象
+     * @return
+     */
+    boolean updateUser(User user);
 }
