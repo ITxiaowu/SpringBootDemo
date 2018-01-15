@@ -17,6 +17,33 @@
     from user
   </select>
 
+  <!-- 新增用户对象 -->
+  <insert id="addUser" parameterType="com.example.dao.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userage != null" >
+        userage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
   <!-- 根据编号查询 -->
   <select id="getUsetById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
