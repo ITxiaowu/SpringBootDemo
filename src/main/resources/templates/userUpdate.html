@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8"/>
     <title>用户编辑</title>
-    <script th:src="@{/js/jquery-1.10.2.js}"></script>
-    <script th:src="@{/js/vue.min.js}"></script>
-    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
-<form id="updateUser">
-    <input name="userid" th:value="${user.userid}" type="hidden" />
+<!-- 引入资源文件 -->
+<div th:include="system/resources"></div>
+<form id="userUpdate">
+    <input v-model="userInfo.userid" type="hidden" />
     <table>
         <caption>编辑用户</caption>
         <tr>
             <td>用户名：</td>
-            <td><input name="username" th:value="${user.username}"/></td>
+            <td><input v-model="userInfo.username" /></td>
         </tr>
         <tr>
             <td>年龄：</td>
-            <td><input name="userage"  th:value="${user.userage}" /></td>
+            <td><input v-model="userInfo.userage" /></td>
         </tr>
         <tr style="text-align: center">
             <td colspan="2">
@@ -30,20 +28,42 @@
     </table>
 </form>
 <script type="text/javascript">
-    $("#doUpdateUser").click(function(){
-        console.log($("#updateUser").serialize())
-        $.ajax({
-            async: true,// 默认值为true,即为异步
-            cache:false,//不使用缓存
-            data:$("#updateUser").serialize(),
-            url:"/updateUser",
-            type:"POST",
-            dataType:'JSON',
-            success:function(data){
-                alert(data)
-                console.log(data)
+    var vm_userUpdate = new Vue({
+        el:"#userUpdate",
+        data:{
+            userInfo:{},
+        },
+        mounted (){// 页面渲染完成后执行
+            var userid;
+            // params:map集合;
+            var params = getHref_Param();
+            $.each(params,function(key,value){
+                if(key == 'userid'){// 获取userid查询对象
+                    userid = value;
+                }
+            });
+            axios.post("/getUserByUserId?userid="+userid)
+                .then(responce => {
+                    this.userInfo = responce.data;
+                })
+        },
+        methods:{
+            submit:function(){
+                axios.post("/updateUser",this.userInfo)
+                    .then(responce => {
+                        var result = responce.data;
+                        if(result = "success"){// 保存成功，刷新主页
+                            alert("保存成功");
+                            // 跳往主页并刷新
+                            window.location.href="/index"
+                        }else if(result = "fail"){// 保存失败，提示错误
+                            alert("保存失败，请重试")
+                        }else if(result = "exception"){// 代码异常
+                            alert("程序异常，请联系管理员")
+                        }
+                    })
             }
-        })
+        }
     })
 </script>
 </body>

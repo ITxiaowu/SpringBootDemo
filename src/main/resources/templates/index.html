@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <title>主页</title>
-    <script th:src="@{/js/jquery-1.10.2.js}"></script>
-    <script th:src="@{/js/vue.min.js}"></script>
-    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
+<!-- 引入资源文件 -->
+<div th:include="system/resources"></div>
 <div id="index_vue">
     <button v-on:click="getUserList">搜索/刷新</button>
     <button v-on:click="toAddUser">新增</button>
@@ -59,7 +57,7 @@
             },
             // 跳转至编辑页面
             toUpdateUser:function(id){
-                window.location.href='/toUpdateUser?userid='+id;
+                window.location.href='/toUserUpdate?userid='+id;
             },
             // 删除
             deleteUser: function (id) {

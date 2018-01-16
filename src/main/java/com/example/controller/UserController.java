@@ -75,16 +75,24 @@ public class UserController {
     }
 
     /**
-     * 修改回显，获取user对象
-     * @param userid user编号
-     * @param modelMap 回传的数据
+     * 跳转至user修改页面
      * @return
      */
-    @RequestMapping(value = "/toUpdateUser", method = RequestMethod.GET)
-    public String toUpdateUser(int userid,ModelMap modelMap){
-        User user =userMapper.getUsetById(userid);
-        modelMap.addAttribute("user",user);
+    @RequestMapping(value = "/toUserUpdate", method = RequestMethod.GET)
+    public String toUserUpdate(){
         return "/userUpdate";
+    }
+
+    /**
+     * 修改回显，获取user对象
+     * @param userid user编号
+     * @return
+     */
+    @RequestMapping(value = "/getUserByUserId", method = RequestMethod.POST)
+    @ResponseBody
+    public User getUserByUserId(int userid){
+        User user =userMapper.getUsetById(userid);
+        return user;
     }
 
     /**
