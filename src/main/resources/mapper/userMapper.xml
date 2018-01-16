@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.example.bean.User" >
+  <resultMap id="BaseResultMap" type="com.example.model.User" >
     <id column="userid" property="userid" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="userage" property="userage" jdbcType="INTEGER" />
@@ -18,7 +18,7 @@
   </select>
 
   <!-- 新增用户对象 -->
-  <insert id="addUser" parameterType="com.example.bean.User" >
+  <insert id="addUser" parameterType="com.example.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -52,7 +52,7 @@
   </select>
 
   <!-- 根据主键编辑user对象 -->
-  <update id="updateUser" parameterType="com.example.bean.User" >
+  <update id="updateUser" parameterType="com.example.model.User" >
     update user
     <set >
       <if test="username != null" >

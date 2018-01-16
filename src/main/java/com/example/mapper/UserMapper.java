@@ -1,12 +1,15 @@
 package com.example.mapper;
 
-import com.example.bean.User;
+import com.example.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Mapper
+// 解决IDEA:Could not autowire. No beans of 'UserMapper' type found.
+@Component(value = "UserMapper")
 public interface UserMapper {
     /**
      * 获取所有对象的集合
