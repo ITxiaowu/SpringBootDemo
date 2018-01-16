@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户添加</title>
+    <script th:src="@{/static/js/jquery-1.10.2.js}"></script>
+    <script th:src="@{/static/js/vue.min.js}"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<form v-on:submit.prevent="submit" id="addUser">
+    <table>
+        <caption>新增用户</caption>
+        <tr>
+            <td>用户名：</td>
+            <td><input v-model="userInfo.username"/></td>
+        </tr>
+        <tr>
+            <td>年龄：</td>
+            <td><input v-model="userInfo.userage"/></td>
+        </tr>
+        <tr style="text-align: center">
+            <td colspan="2">
+                <button>保存</button>
+                <button onclick="javascript:history.back(-1);">返回</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<script>
+    var vm_addUser = new Vue({
+        el:"#addUser",
+        data:{
+            userInfo:{}
+        },
+        methods:{
+            submit:function(){
+                axios.post("/addUser",this.userInfo)
+                    .then(responce => {
+                        console.log(responce.data)
+                        var result = responce.data;
+                        if(result = "success"){// 保存成功，刷新主页
+                            alert("保存成功");
+                            // 跳往主页并刷新
+                            window.location.href="/index"
+                        }else if(result = "fail"){// 保存失败，提示错误
+                            alert("保存失败，请重试")
+                        }else if(result = "exception"){// 代码异常
+                            alert("程序异常，请联系管理员")
+                        }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
