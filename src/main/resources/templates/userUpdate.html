@@ -42,7 +42,10 @@
                     userid = value;
                 }
             });
-            axios.post("/getUserByUserId?userid="+userid)
+            var params = new URLSearchParams();
+            params.append('userid',userid);
+
+            axios.post("/getUserByUserId",params)
                 .then(responce => {
                     this.userInfo = responce.data;
                 })
