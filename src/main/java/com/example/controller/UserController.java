@@ -2,10 +2,12 @@ package com.example.controller;
 
 import com.example.mapper.UserMapper;
 import com.example.model.User;
+import com.example.util.PageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,15 +29,22 @@ public class UserController {
         return "/index";
     }
 
-
     /**
      * 获取user对象
      * @return
      */
     @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getUserList(){
-        return userMapper.getUsetList();
+    public ModelMap getUserList(int pageNo){
+        PageModel<User> pageModel = new PageModel<User>();
+        pageModel.setPageNo(pageNo);
+        pageModel.setTotalCount(userMapper.getUsetCount(pageModel));
+        List<User> userList = userMapper.getUsetList(pageModel);
+
+        ModelMap modelMap = new ModelMap();
+        modelMap.put("userList",userList);
+        modelMap.put("totlePage",pageModel.getTotalPage());
+        return modelMap;
     }
 
     /**

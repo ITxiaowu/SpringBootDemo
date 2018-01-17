@@ -27,49 +27,42 @@
             </td>
         </tr>
     </table>
-</div>
-<div id="app">
     <vue-pagination :cur.sync="cur" :all.sync="all" v-on:btn-click="listen"></vue-pagination>
-    <p>{{msg}}</p>
 </div>
-<script type="text/javascript">
-    var app = new Vue({
-        el: '#app',
-        data: {
-            cur: 1,
-            all: 100,
-            msg: ''
-        },
-        components: {
-            'vue-pagination': Vue.Pagination
-        },
-        methods: {
-            listen: function (data) {
-                this.msg = '当前页码：' + data
-            }
-        }
-    })
-</script>
-</body>
 <script type="text/javascript">
     var index_vue = new Vue({
         el:"#index_vue",
         data:{
             users:'',
+            cur: 1,// 初始化当前页
+            all: '',// 总页数
         },
         mounted(){// 页面渲染完成后执行
             axios.get("/getUserList")
                 .then(response => {
-                    console.log(response.data);
-                    this.users = response.data
+                    this.users = response.data.userList;
+                    this.all = response.data.totlePage;
                 })
         },
+        components: {
+            // 分页插件
+            'vue-pagination': Vue.Pagination
+        },
         methods: {
+            listen: function (data) {// 分页插件点击事件（查询集合对象）
+                axios.get("/getUserList?pageNo="+data)
+                    .then(response => {
+                        this.users = response.data.userList;
+                        this.all = response.data.totlePage;
+                        this.cur = data;
+                    })
+            },
             // 获取用户列表（刷新和按条件查询）
             getUserList: function () {
-                axios.get("/getUserList")
+                axios.get("/getUserList?pageNo="+this.cur)
                     .then(response => {
-                        this.users = response.data
+                        this.users = response.data.userList;
+                        this.all = response.data.totlePage;
                     })
             },
             // 跳转至新增页面
@@ -99,4 +92,5 @@
         },
     })
 </script>
+</body>
 </html>

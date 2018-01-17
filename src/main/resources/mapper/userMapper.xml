@@ -10,11 +10,32 @@
     userid, username, userage
   </sql>
 
-  <!--查询所有-->
-  <select id="getUsetList" resultMap="BaseResultMap">
+  <!-- 总页数对象 -->
+  <resultMap id="ResultOfInteger" type="java.lang.Integer">
+    <result column="recount" property="recount" jdbcType="INTEGER" />
+  </resultMap>
+
+  <!--查询数据总条数-->
+  <select id="getUsetCount" resultMap="ResultOfInteger" parameterType="com.example.util.PageModel">
+    select count(userid) as recount from user where 1=1
+    <if test="searchMap != null">
+      <if test="searchMap.username != null and '' != searchMap.username">
+        and username like '%${searchMap.username}%'
+      </if>
+    </if>
+  </select>
+
+  <!--查询所有对象（分页）-->
+  <select id="getUsetList" resultMap="BaseResultMap" parameterType="com.example.util.PageModel">
     select
     <include refid="Base_Column_List" />
-    from user
+    from user where 1=1
+    <if test="searchMap != null">
+      <if test="searchMap.username != null and '' != searchMap.username">
+        and username like '%${searchMap.username}%'
+      </if>
+    </if>
+    ORDER BY userid asc limit #{thisNo},#{pageSize}
   </select>
 
   <!-- 新增用户对象 -->

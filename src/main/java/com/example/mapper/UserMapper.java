@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.model.User;
+import com.example.util.PageModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -12,10 +13,12 @@ import java.util.List;
 @Component(value = "UserMapper")
 public interface UserMapper {
     /**
-     * 获取所有对象的集合
+     * 获取所有对象的集合（分页）
      * @return
      */
-    List<User> getUsetList();
+    List<User> getUsetList(PageModel<User> pageModel);
+    // 分页对象  数据总条数
+    int getUsetCount(PageModel<User> pageModel);
 
     /**
      * user对象新增
