@@ -88,7 +88,7 @@ public class UserController {
     @RequestMapping(value = "/getUserByUserId", method = RequestMethod.POST)
     @ResponseBody
     public User getUserByUserId(int userid){
-        User user =userMapper.getUsetById(userid);
+        User user =userMapper.getUseById(userid);
         return user;
     }
 
@@ -99,13 +99,38 @@ public class UserController {
      */
     @RequestMapping(value="/updateUser",method = RequestMethod.POST)
     @ResponseBody
-    public String updateUser(@RequestParam(value = "user", required = false) User user){
+    public String updateUser(@RequestBody User user){
         // 操作执行后的标识符
         String resultStr = "";
 
         try{
-            boolean updateResult = false;//userMapper.updateUser(user);
+            boolean updateResult = userMapper.updateUser(user);
             if(updateResult){// 修改成功
+                resultStr = "succcess";
+            }else{// 修改失败
+                resultStr = "fail";
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            resultStr = "exception";
+        }
+        return resultStr;
+    }
+
+    /**
+     * 执行User删除
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value="/deleteUser",method = RequestMethod.GET)
+    @ResponseBody
+    public String deleteUser(int userid){
+        // 操作执行后的标识符
+        String resultStr = "";
+
+        try{
+            boolean deleteResult = userMapper.deleteUseById(userid);
+            if(deleteResult){// 删除成功
                 resultStr = "succcess";
             }else{// 修改失败
                 resultStr = "fail";

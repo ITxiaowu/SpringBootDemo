@@ -47,7 +47,6 @@
             getUserList: function () {
                 axios.get("/getUserList")
                     .then(response => {
-                        console.log(response.data);
                         this.users = response.data
                     })
             },
@@ -61,10 +60,18 @@
             },
             // 删除
             deleteUser: function (id) {
-                axios.post("/getUserList")
+                axios.get("/deleteUser?userid="+id)
                     .then(response => {
-                        console.log(response.data);
-                        this.users = response.data
+                        var result = response.data;
+                        if(result = "success"){// 删除成功，刷新主页
+                            alert("删除成功");
+                            // 刷新
+                            window.location.href="/index"
+                        }else if(result = "fail"){// 删除失败，提示错误
+                            alert("删除失败，请重试")
+                        }else if(result = "exception"){// 代码异常
+                            alert("程序异常，请联系管理员")
+                        }
                     })
             },
         },

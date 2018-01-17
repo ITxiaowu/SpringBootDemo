@@ -7,7 +7,7 @@
 <body>
 <!-- 引入资源文件 -->
 <div th:include="system/resources"></div>
-<form id="userUpdate">
+<form v-on:submit.prevent="submit" id="userUpdate">
     <input v-model="userInfo.userid" type="hidden" />
     <table>
         <caption>编辑用户</caption>
@@ -21,7 +21,7 @@
         </tr>
         <tr style="text-align: center">
             <td colspan="2">
-                <button id="doUpdateUser">保存</button>
+                <button>编辑</button>
                 <button onclick="javascript:history.back(-1);">返回</button>
             </td>
         </tr>
@@ -55,12 +55,12 @@
                 axios.post("/updateUser",this.userInfo)
                     .then(responce => {
                         var result = responce.data;
-                        if(result = "success"){// 保存成功，刷新主页
-                            alert("保存成功");
+                        if(result = "success"){// 编辑成功，刷新主页
+                            alert("编辑成功");
                             // 跳往主页并刷新
                             window.location.href="/index"
-                        }else if(result = "fail"){// 保存失败，提示错误
-                            alert("保存失败，请重试")
+                        }else if(result = "fail"){// 编辑失败，提示错误
+                            alert("编辑失败，请重试")
                         }else if(result = "exception"){// 代码异常
                             alert("程序异常，请联系管理员")
                         }

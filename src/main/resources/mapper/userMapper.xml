@@ -45,7 +45,7 @@
   </insert>
 
   <!-- 根据编号查询 -->
-  <select id="getUsetById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getUseById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
     from user where userid = #{userid,jdbcType=INTEGER}
@@ -64,4 +64,9 @@
     </set>
     where userid = #{userid,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据主键删除user对象 -->
+  <delete id="deleteUseById" parameterType="java.lang.Integer">
+    delete from user where userid = #{userid,jdbcType=INTEGER}
+  </delete>
 </mapper>

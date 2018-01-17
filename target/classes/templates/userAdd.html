@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <title>用户添加</title>
-    <script th:src="@{/static/js/jquery-1.10.2.js}"></script>
-    <script th:src="@{/static/js/vue.min.js}"></script>
-    <script src="https://cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
+<!-- 引入资源文件 -->
+<div th:include="system/resources"></div>
 <form v-on:submit.prevent="submit" id="addUser">
     <table>
         <caption>新增用户</caption>
