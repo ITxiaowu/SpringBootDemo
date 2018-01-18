@@ -1801,7 +1801,7 @@
                     continue;
                 }
                 // record a all lowercase <-> kebab-case mapping for
-                // possible custom element case error warning
+                // possible custom element case exception warning
                 if ('development' !== 'production') {
                     map[key.replace(/-/g, '').toLowerCase()] = hyphenate(key);
                 }
@@ -2693,7 +2693,7 @@
             transition = typeMap[type] || typeMap['else'] || ERROR;
 
             if (transition === ERROR) {
-                return; // parse error
+                return; // parse exception
             }
 
             mode = transition[0];
@@ -3150,7 +3150,7 @@
         this.newDeps = [];
         this.depIds = new _Set();
         this.newDepIds = new _Set();
-        this.prevError = null; // for async error stacks
+        this.prevError = null; // for async exception stacks
         // parse expression for getter/setter
         if (isFn) {
             this.getter = expOrFn;
@@ -3300,7 +3300,7 @@
             // but not the other way around.
             this.shallow = this.queued ? shallow ? this.shallow : false : !!shallow;
             this.queued = true;
-            // record before-push error stack in debug mode
+            // record before-push exception stack in debug mode
             /* istanbul ignore if */
             if ('development' !== 'production' && config.debug) {
                 this.prevError = new Error('[vue] async stack trace');
@@ -3327,7 +3327,7 @@
                 var oldValue = this.value;
                 this.value = value;
                 // in debug + async mode, when a watcher callbacks
-                // throws, we also throw the saved before-push error
+                // throws, we also throw the saved before-push exception
                 // so the full cross-tick stack trace is available.
                 var prevError = this.prevError;
                 /* istanbul ignore if */
@@ -6082,7 +6082,7 @@
                 var lowerCaseName = path.toLowerCase();
                 value = /[A-Z\-]/.test(name) && (el.getAttribute(lowerCaseName) || el.getAttribute(':' + lowerCaseName) || el.getAttribute('v-bind:' + lowerCaseName) || el.getAttribute(':' + lowerCaseName + '.once') || el.getAttribute('v-bind:' + lowerCaseName + '.once') || el.getAttribute(':' + lowerCaseName + '.sync') || el.getAttribute('v-bind:' + lowerCaseName + '.sync'));
                 if (value) {
-                    warn('Possible usage error for prop `' + lowerCaseName + '` - ' + 'did you mean `' + attr + '`? HTML is case-insensitive, remember to use ' + 'kebab-case for props in templates.', vm);
+                    warn('Possible usage exception for prop `' + lowerCaseName + '` - ' + 'did you mean `' + attr + '`? HTML is case-insensitive, remember to use ' + 'kebab-case for props in templates.', vm);
                 } else if (options.required) {
                     // warn missing required
                     warn('Missing required prop: ' + name, vm);
@@ -8770,7 +8770,7 @@
             // may affect the state of other components that are still
             // observing the same object, but that seems to be a
             // reasonable responsibility for the user rather than
-            // always throwing an error on them.
+            // always throwing an exception on them.
             this.$el = this.$parent = this.$root = this.$children = this._watchers = this._context = this._scope = this._directives = null;
             // call the last hook...
             this._isDestroyed = true;

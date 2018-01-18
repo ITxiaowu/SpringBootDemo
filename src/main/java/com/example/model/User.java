@@ -1,5 +1,11 @@
 package com.example.model;
 
+/**
+ * user对象实体
+ *
+ * @Author xierh
+ * @Date 2018/1/18/018 17:42
+ */
 public class User {
     private Integer userid;
 

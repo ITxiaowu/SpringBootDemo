@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.exception.Bean.ExceptionBean;
+import com.example.exception.Bean.MyException;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
 import com.example.util.PageModel;
@@ -8,10 +10,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * user对象控制层
+ *
+ * @Author xierh
+ * @Date 2018/1/18/018 17:28
+ */
 @Controller
 public class UserController {
     @Autowired
@@ -20,17 +31,25 @@ public class UserController {
     //日志对象
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    /**
-     * 主页
+    /***
+     * 跳往主页
+     *
      * @return
+     * @throws MyException
      */
     @RequestMapping("/index")
-    public String helloHtml(){
+    public String index() throws MyException {
+        // 测试异常处理(errorCode可设置成固定的常量)
+        // int a = 1/0;
+        // throw new MyException (1001,"发生错误了....");
+
         return "/index";
     }
 
-    /**
+    /***
      * 获取user对象
+     *
+     * @param pageNo 当前页
      * @return
      */
     @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
@@ -47,8 +66,9 @@ public class UserController {
         return modelMap;
     }
 
-    /**
+    /***
      * 跳往新增页面
+     *
      * @return
      */
     @RequestMapping(value = "/toAddUser", method = RequestMethod.GET)
@@ -58,6 +78,7 @@ public class UserController {
 
     /**
      * 执行user对象新增
+     *
      * @param user user对象
      * @return
      */
@@ -82,6 +103,7 @@ public class UserController {
 
     /**
      * 跳转至user修改页面
+     *
      * @return
      */
     @RequestMapping(value = "/toUserUpdate", method = RequestMethod.GET)
@@ -91,6 +113,7 @@ public class UserController {
 
     /**
      * 修改回显，获取user对象
+     *
      * @param userid user编号
      * @return
      */
@@ -103,6 +126,7 @@ public class UserController {
 
     /**
      * 执行User编辑
+     *
      * @param user
      * @return
      */
@@ -128,7 +152,8 @@ public class UserController {
 
     /**
      * 执行User删除
-     * @param userid
+     *
+     * @param userid user编号
      * @return
      */
     @RequestMapping(value="/deleteUser",method = RequestMethod.GET)

@@ -1907,7 +1907,7 @@
                 if (this$1.errorCbs.length) {
                     this$1.errorCbs.forEach(function (cb) { cb(err); });
                 } else {
-                    warn(false, 'uncaught error during route navigation:');
+                    warn(false, 'uncaught exception during route navigation:');
                     console.error(err);
                 }
             }

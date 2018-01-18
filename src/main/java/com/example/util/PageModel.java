@@ -5,7 +5,9 @@ import java.util.Map;
 
 /**
  * 分页工具类
- * @param <E>
+ *
+ * @Author xierh
+ * @Date 2018/1/18/018 17:42
  */
 public class PageModel<E> {
     // 结果集

@@ -8,12 +8,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * user mapper接口类
+ *
+ * @Author xierh
+ * @Date 2018/1/18/018 17:39
+ */
 @Mapper
 // 解决IDEA:Could not autowire. No beans of 'UserMapper' type found.
 @Component(value = "UserMapper")
 public interface UserMapper {
     /**
      * 获取所有对象的集合（分页）
+     *
      * @return
      */
     List<User> getUsetList(PageModel<User> pageModel);
@@ -22,6 +29,7 @@ public interface UserMapper {
 
     /**
      * user对象新增
+     *
      * @param user user对象
      * @return
      */
@@ -29,6 +37,7 @@ public interface UserMapper {
 
     /**
      * 根据编号查询user对象
+     *
      * @param userid user编号
      * @return
      */
@@ -36,6 +45,7 @@ public interface UserMapper {
 
     /**
      * 修改user对象
+     *
      * @param user user对象
      * @return
      */
@@ -43,6 +53,7 @@ public interface UserMapper {
 
     /**
      * 根据编号删除user对象
+     *
      * @param userid user编号
      * @return
      */
