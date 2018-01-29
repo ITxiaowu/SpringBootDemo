@@ -7,17 +7,17 @@ package com.example.model;
  * @Date 2018/1/18/018 17:42
  */
 public class User {
-    private Integer userid;
+    private String userid;
 
     private String username;
 
     private Integer userage;
 
-    public Integer getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 

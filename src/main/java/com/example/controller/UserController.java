@@ -5,6 +5,8 @@ import com.example.exception.Bean.MyException;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
 import com.example.util.PageModel;
+import com.example.util.UUIDUtil;
+import groovy.transform.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * user对象控制层
@@ -85,6 +88,8 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody User user){
+        // 添加主键
+        user.setUserid(UUIDUtil.get20UUID());
         // 操作执行后的标识符
         String resultStr = "";
         try {
@@ -119,7 +124,7 @@ public class UserController {
      */
     @RequestMapping(value = "/getUserByUserId", method = RequestMethod.POST)
     @ResponseBody
-    public User getUserByUserId(int userid){
+    public User getUserByUserId(String userid){
         User user =userMapper.getUseById(userid);
         return user;
     }
@@ -158,7 +163,7 @@ public class UserController {
      */
     @RequestMapping(value="/deleteUser",method = RequestMethod.GET)
     @ResponseBody
-    public String deleteUser(int userid){
+    public String deleteUser(String userid){
         // 操作执行后的标识符
         String resultStr = "";
 

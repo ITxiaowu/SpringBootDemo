@@ -36,15 +36,14 @@
             submit:function(){
                 axios.post("/addUser",this.userInfo)
                     .then(responce => {
-                        console.log(responce.data)
                         var result = responce.data;
-                        if(result = "success"){// 保存成功，刷新主页
+                        if(result == "succcess"){// 保存成功，刷新主页
                             alert("保存成功");
                             // 跳往主页并刷新
                             window.location.href="/index"
-                        }else if(result = "fail"){// 保存失败，提示错误
+                        }else if(result == "fail"){// 保存失败，提示错误
                             alert("保存失败，请重试")
-                        }else if(result = "exception"){// 代码异常
+                        }else if(result == "exception"){// 代码异常
                             alert("程序异常，请联系管理员")
                         }
                 })

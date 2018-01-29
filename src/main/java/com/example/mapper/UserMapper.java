@@ -41,7 +41,7 @@ public interface UserMapper {
      * @param userid user编号
      * @return
      */
-    User getUseById(@Param("userid") Integer userid);
+    User getUseById(@Param("userid") String userid);
 
     /**
      * 修改user对象
@@ -57,5 +57,5 @@ public interface UserMapper {
      * @param userid user编号
      * @return
      */
-    boolean deleteUseById(@Param("userid") Integer userid);
+    boolean deleteUseById(@Param("userid") String userid);
 }

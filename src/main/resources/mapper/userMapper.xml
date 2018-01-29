@@ -54,7 +54,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
@@ -66,10 +66,10 @@
   </insert>
 
   <!-- 根据编号查询 -->
-  <select id="getUseById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getUseById" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List" />
-    from user where userid = #{userid,jdbcType=INTEGER}
+    from user where userid = #{userid,jdbcType=VARCHAR}
   </select>
 
   <!-- 根据主键编辑user对象 -->
@@ -83,11 +83,11 @@
         userage = #{userage,jdbcType=INTEGER},
       </if>
     </set>
-    where userid = #{userid,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=VARCHAR}
   </update>
 
   <!-- 根据主键删除user对象 -->
-  <delete id="deleteUseById" parameterType="java.lang.Integer">
-    delete from user where userid = #{userid,jdbcType=INTEGER}
+  <delete id="deleteUseById" parameterType="java.lang.String">
+    delete from user where userid = #{userid,jdbcType=VARCHAR}
   </delete>
 </mapper>
